@@ -21,7 +21,10 @@ module.exports = {
   Mutation: {
     createPost: async (_, { title, content, file }) => {
       //To upload Single Image to Cloudinary
-      const imageUrl = await processUpload(file);
+      let imageUrl = "";
+      if (file) {
+        imageUrl = await processUpload(file);
+      }
 
       //To upload image into 'Upload' Foder uncomment the below code
       // const imageUrl = await uploadImage(file);

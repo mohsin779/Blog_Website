@@ -21,19 +21,22 @@ module.exports = {
   Mutation: {
     createPost: async (_, { title, content, file }) => {
       //To upload Single Image to Cloudinary
-      let imageUrl = "";
-      if (file) {
-        imageUrl = await processUpload(file);
-      }
 
-      //To upload image into 'Upload' Foder uncomment the below code
+      //To upload file into Clodinary from backend
+      // let imageUrl = file;
+      // if (file) {
+      //   imageUrl = await processUpload(file);
+
+      // }
+
+      //To upload image into 'Upload' Fodler, uncomment the below code
       // const imageUrl = await uploadImage(file);
       // console.log(imageUrl);
 
       const post = new Post({
         title,
         content,
-        image: imageUrl,
+        image: file,
       });
       await post.save();
       return {
@@ -50,7 +53,8 @@ module.exports = {
       } else {
         let imageUrl;
         if (file) {
-          imageUrl = await processUpload(file);
+          // imageUrl = await processUpload(file);
+          imageUrl = file;
           var filename = oldPost.image.split("/").pop();
           filename = filename.split(".")[0];
           cloudinary.uploader.destroy(filename);

@@ -20,12 +20,12 @@ module.exports = gql`
     getPost(post: String!): PostData!
   }
   extend type Mutation {
-    createPost(title: String!, content: String!, file: Upload): Result
+    createPost(title: String!, content: String!, file: String!): Result
     updatePost(
       post: String!
       title: String
       content: String
-      file: Upload
+      file: String
     ): Result
     deletePost(post: String!): Result
   }

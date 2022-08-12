@@ -33,3 +33,7 @@ app.listen(port, () => {
   console.log(`App running on port ${port}!`);
   console.log(`GraphQL Endpoint Path: ${apolloServer.graphqlPath}`);
 });
+
+// app.listen(port, "0.0.0.0", () => {
+//   console.log(`App running on port ${port}`);
+// }); //to serve locally

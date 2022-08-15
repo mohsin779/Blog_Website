@@ -16,7 +16,7 @@ module.exports = gql`
   }
   extend type Query {
     greetings: String
-    getPosts: PostsData!
+    getPosts(page: Int, limit: Int): PostsData!
     getPost(post: String!): PostData!
   }
   extend type Mutation {

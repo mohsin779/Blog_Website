@@ -8,8 +8,14 @@ module.exports = {
     greetings: () => {
       return "Hello World";
     },
-    getPosts: async () => {
-      const posts = await Post.find();
+    getPosts: async (_, { page, limit }) => {
+      const currentPage = page || 1;
+      const perPage = limit || 10;
+      let totalPosts = await Post.find().countDocuments();
+
+      const posts = await Post.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage);
       return { posts };
     },
     getPost: async (_, { post }) => {

@@ -15,13 +15,35 @@ module.exports = {
         .limit(perPage);
       return { admins };
     },
+    login: async (_, { email, password }) => {
+      const admin = await Admin.findOne({ email: email });
+      let error;
+      if (!admin) {
+        return {
+          error: "Admin with this email not exist!",
+        };
+      }
+      const isEqual = await bcrypt.compare(password, admin.password);
+      if (!isEqual) {
+        return {
+          error: "Wrong Password",
+        };
+      }
+      const token = admin.genAuthToken();
+      return {
+        admin,
+        token,
+        error,
+      };
+    },
   },
   Mutation: {
     signUp: async (_, { name, email, password }) => {
       const existingAdmin = await Admin.findOne({ email: email });
+      let error;
       if (existingAdmin) {
         return {
-          message: "An account with this email is already exist",
+          error: "An account with this email is already exist",
         };
       }
 
@@ -34,10 +56,19 @@ module.exports = {
       });
       const result = await admin.save();
       const token = result.genAuthToken();
+      const createdAdmin = {
+        _id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        createdAt: admin.createdAt,
+        updatedAt: admin.updatedAt,
+      };
 
       return {
         message: "Account created Successfully!",
+        admin: createdAdmin,
         token,
+        error,
       };
     },
   },

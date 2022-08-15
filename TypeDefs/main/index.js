@@ -1,5 +1,6 @@
 const { gql } = require("apollo-server-express");
-const uploadTypeDefs = require("../uploadTypes");
+const postTypeDefs = require("../postTypes");
+const adminTypeDefs = require("../adminTypes");
 
 const typeDefs = gql`
   scalar Upload
@@ -11,4 +12,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = [typeDefs, uploadTypeDefs];
+module.exports = [typeDefs, postTypeDefs, adminTypeDefs];

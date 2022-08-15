@@ -1,4 +1,5 @@
-const resolvers = require("../resolver");
+const adminResolvers = require("../adminResolver");
+const postResolvers = require("../postResolver");
 
 async function graphQLUpload() {
   return await import("graphql-upload/GraphQLUpload.mjs").default;
@@ -7,4 +8,4 @@ async function graphQLUpload() {
 const customResolvers = {
   Upload: graphQLUpload(),
 };
-module.exports = [customResolvers, resolvers];
+module.exports = [customResolvers, postResolvers, adminResolvers];

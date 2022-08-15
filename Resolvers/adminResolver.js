@@ -32,9 +32,12 @@ module.exports = {
         email,
         password: hashedPw,
       });
-      await admin.save();
+      const result = await admin.save();
+      const token = result.genAuthToken();
+
       return {
         message: "Account created Successfully!",
+        token,
       };
     },
   },

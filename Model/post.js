@@ -16,6 +16,11 @@ module.exports.Post = model(
         type: String,
         required: false,
       },
+      creator: {
+        type: Schema.Types.ObjectId,
+        ref: "Admin",
+        required: true,
+      },
     },
     { timestamps: true }
   )

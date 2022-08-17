@@ -1,4 +1,6 @@
 const { gql } = require("apollo-server-express");
+const express = require("express");
+
 module.exports = gql`
   type Admin {
     _id: ID!
@@ -8,7 +10,8 @@ module.exports = gql`
     updatedAt: String
   }
   type AdminsData {
-    admins: [Admin]!
+    admins: [Admin]
+    error: String
   }
   type LoginData {
     admin: Admin
@@ -17,7 +20,7 @@ module.exports = gql`
   }
 
   extend type Query {
-    getAdmins(page: Int, limit: Int): AdminsData!
+    getAdmins(page: Int, limit: Int): AdminsData
     login(email: String, password: String): LoginData!
   }
   extend type Mutation {

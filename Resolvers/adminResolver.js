@@ -1,11 +1,18 @@
 const { Admin } = require("../Model/admin");
+const { auth } = require("../Middlewares/isAuth");
+
 const bcrypt = require("bcryptjs");
 
 require("dotenv").config();
 
 module.exports = {
   Query: {
-    getAdmins: async (_, { page, limit }) => {
+    getAdmins: async (_, { page, limit }, context) => {
+      const isAuth = auth(context.req);
+      if (!isAuth) {
+        return { error: "Not Authanticated" };
+      }
+
       const currentPage = page || 1;
       const perPage = limit || 10;
       let totalAdmins = await Admin.find().countDocuments();

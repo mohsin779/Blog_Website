@@ -5,19 +5,22 @@ module.exports = gql`
     title: String!
     content: String!
     image: String!
+    creator: Admin!
     createdAt: String!
     updatedAt: String!
   }
   type PostsData {
-    posts: [Post]!
+    posts: [Post]
+    totalPosts: Int
   }
   type PostData {
     postData: Post!
   }
   extend type Query {
     greetings: String
-    getPosts(page: Int, limit: Int): PostsData!
+    getPosts(page: Int, limit: Int): PostsData
     getPost(post: String!): PostData!
+    getMyPosts(page: Int, limit: Int): PostsData
   }
   extend type Mutation {
     createPost(title: String!, content: String!, file: String!): Result
@@ -31,5 +34,6 @@ module.exports = gql`
   }
   type Result {
     message: String
+    error: String
   }
 `;

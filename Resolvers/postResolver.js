@@ -22,7 +22,7 @@ module.exports = {
       return { posts, totalPosts };
     },
     getPost: async (_, { post }) => {
-      const postData = await Post.findById(post);
+      const postData = await Post.findById(post).populate("creator");
       console.log(postData);
       return { postData };
     },
